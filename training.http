@@ -1,0 +1,16 @@
+post http://localhost:5000/training
+Content-Type:  application/json
+
+{
+    "intent": {
+        "name":"saudacao",
+        "content": [
+            "Oi",
+            "Oi, tudo bem?",
+            "Oi, tudo bem?",
+            "Oi, tudo ótimo e com você?",
+            "Olá", 
+            "Olá, como você está hoje?"
+        ]
+    }
+}
