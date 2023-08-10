@@ -5,7 +5,7 @@ chatbot = ChatBot('thor',
     logic_adapters=[
         {
             'import_path': 'chatterbot.logic.BestMatch',
-            'default_response': 'Desculpe não consegui entender. Tente reformular sua pergunta.',
+            'default_response': 'Desculpe não consegui entender. Tente reformular sua mensagem.',
             'maximum_similarity_threshold': 0.60
         }
     ]
