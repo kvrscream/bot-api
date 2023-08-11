@@ -1,0 +1,6 @@
+post http://localhost:5000/create
+Content-Type: application/json
+
+{
+    "name": "Dot"
+}

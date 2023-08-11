@@ -1,2 +1,8 @@
 install chatterbot from: pip install git+https://github.com/ShoneGK/ChatterPy
 Problemas com spacy. basta instalar o pacote que falta com: python3 -m spacy download en_core_web_sm
+
+ATENÇÃO GAMBIARRA NO FONTE mongodb.py 
+#total_statements = self.statements.find(kwargs).count()
+#for start_index in range(0, total_statements, page_size):
+
+Linhas comentadas pois o count não funciona

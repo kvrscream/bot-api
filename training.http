@@ -2,15 +2,16 @@ post http://localhost:5000/training
 Content-Type:  application/json
 
 {
+    "bot": "Infamous",
     "intent": {
-        "name":"saudacao",
+        "name":"finalização",
         "content": [
             "Oi",
             "Oi, tudo bem?",
-            "Oi, tudo bem?",
-            "Oi, tudo ótimo e com você?",
-            "Olá", 
-            "Olá, como você está hoje?"
+            "Olá",
+            "Olá, em que posso ajudar?",
+            "e ai",
+            "Opa, qual a boa?"
         ]
     }
 }
