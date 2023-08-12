@@ -2,6 +2,6 @@ post http://localhost:5000/send
 Content-Type:  application/json
 
 {
-    "bot": "Infamous",
-    "message": "e ai"
+    "bot": "Gordo",
+    "message": "Olá"
 }
