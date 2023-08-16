@@ -1,0 +1,2 @@
+get http://localhost:5000/bots
+Content-Type:  application/json

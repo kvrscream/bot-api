@@ -2,7 +2,7 @@ post http://localhost:5000/training
 Content-Type:  application/json
 
 {
-    "bot": "Gordo",
+    "bot": "Tester",
     "intent": {
         "name":"Saudação",
         "content": [

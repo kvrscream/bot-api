@@ -1,5 +1,8 @@
 from chatterbot import ChatBot
 from chatterbot.trainers import ListTrainer
+from lib.db import connect
+from datetime import datetime
+
 
 def create_bot(bot_name):
     chatbot = ChatBot(bot_name,
@@ -11,6 +14,15 @@ def create_bot(bot_name):
             'maximum_similarity_threshold': 0.60
         }]
     )
+
+    db = connect()
+    db["homolog"].clients.insert_one({
+        "name": bot_name,
+        "created": datetime.now()
+    })
+    db.close()
+
+
     return bot_name
 
 def training_bot(intent, bot):
@@ -39,3 +51,10 @@ def get_response(client_message, bot):
     )
     response = chatbot.get_response(client_message)
     return response
+
+
+def list_bots():
+    db = connect()
+    bots = db['homolog']['clients'].find({})
+
+    return list(bots)

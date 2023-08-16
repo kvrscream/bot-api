@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import request
 import json
-from controllers.botController import training_bot, get_response, create_bot
+from controllers.botController import training_bot, get_response, create_bot, list_bots
 
 app = Flask(__name__)
 
@@ -15,7 +15,7 @@ def create():
     body = request.get_json(force=True)
     bot_name = body['name']
     chatbot = create_bot(bot_name)
-    print(chatbot)
+
     return json.dumps({
         'message': 'Chatbot cadastrado com sucesso',
         'name': bot_name,
@@ -38,4 +38,9 @@ def send_message():
     body = request.get_json(force=True)
     answer = get_response(body['message'], body['bot'])
     return json.dumps({"answer": str(answer)}, ensure_ascii=False).encode('utf8')
+
+@app.route('/bots', methods=['GET'])
+def bots():
+    bots = list_bots()
+    return json.dumps({"clients": str(bots)}, ensure_ascii=False).encode('utf8')
 
