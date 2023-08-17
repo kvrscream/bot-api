@@ -25,7 +25,7 @@ def create_bot(bot_name):
 
     return bot_name
 
-def training_bot(intent, bot):
+def training_bot(name, intent, bot):
     chatbot = ChatBot(bot,
     storage_adapter='chatterbot.storage.MongoDatabaseAdapter',
     database_uri='mongodb+srv://botelho:QaTOAWPJpPn48L8Z@cluster0.sbo5kcd.mongodb.net/%s?retryWrites=true&w=majority' % bot,
@@ -37,6 +37,17 @@ def training_bot(intent, bot):
     )
     trainer = ListTrainer(chatbot)
     trainer.train(intent)
+
+    db = connect()
+    client = db['homolog'].clients.find_one({"name": bot})
+    data = db['homolog'].intents.insert_one({
+        "name": name,
+        "intents": intent,
+        "clientId": client['_id']
+    })
+    print(data)
+    db.close()
+
     return True
 
 def get_response(client_message, bot):
@@ -56,5 +67,11 @@ def get_response(client_message, bot):
 def list_bots():
     db = connect()
     bots = db['homolog']['clients'].find({})
-
+    db.close()
     return list(bots)
+
+def list_intents(client_id):
+    db = connect()
+    inents = db['homolog'].intetns.find({clientId: client_id})
+    db.close()
+    return list(intents)

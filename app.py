@@ -27,7 +27,7 @@ def training():
     body = request.get_json(force=True)
     intent = body['intent']
     bot = body['bot']
-    training_bot(intent['content'], bot)
+    training_bot(intent['name'], intent['content'], bot)
     return json.dumps({
         "message": "Treinamento concluído",
         "intencao": intent["name"]
