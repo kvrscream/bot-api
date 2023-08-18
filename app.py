@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import request
 import json
-from controllers.botController import training_bot, get_response, create_bot, list_bots
+from controllers.botController import training_bot, get_response, create_bot, list_bots, list_intents
 
 app = Flask(__name__)
 
@@ -43,4 +43,11 @@ def send_message():
 def bots():
     bots = list_bots()
     return json.dumps({"clients": str(bots)}, ensure_ascii=False).encode('utf8')
+
+
+@app.route('/intents/<clientId>', methods=["GET"])
+def intents(clientId):
+    intents = list_intents(clientId)
+    print(intents)
+    return json.dumps({"intents": str(intents)}, ensure_ascii=False).encode('utf8')
 

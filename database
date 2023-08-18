@@ -1,0 +1,2 @@
+get http://localhost:5000/intents/64dd2b92cea1ad38b90f3ce0
+Content-Type:  application/json

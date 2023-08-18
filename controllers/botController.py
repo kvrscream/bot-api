@@ -2,6 +2,8 @@ from chatterbot import ChatBot
 from chatterbot.trainers import ListTrainer
 from lib.db import connect
 from datetime import datetime
+from bson.objectid import ObjectId
+
 
 
 def create_bot(bot_name):
@@ -67,11 +69,12 @@ def get_response(client_message, bot):
 def list_bots():
     db = connect()
     bots = db['homolog']['clients'].find({})
-    db.close()
+    #db.close()
     return list(bots)
 
 def list_intents(client_id):
     db = connect()
-    inents = db['homolog'].intetns.find({clientId: client_id})
-    db.close()
+    object_id_to_find = ObjectId(str(client_id))
+    intents = db['homolog'].intents.find({"clientId":object_id_to_find })
+    #db.close()
     return list(intents)
