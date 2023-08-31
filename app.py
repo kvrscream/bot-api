@@ -1,5 +1,4 @@
-from flask import Flask
-from flask import request
+from flask import Flask, request, Response, jsonify
 import json
 from controllers.botController import training_bot, get_response, create_bot, list_bots, list_intents
 from flask_cors import CORS
@@ -17,11 +16,11 @@ def create():
     bot_name = body['name']
     chatbot = create_bot(bot_name)
 
-    return json.dumps({
+    return Response(json.dumps({
         'message': 'Chatbot cadastrado com sucesso',
         'name': bot_name,
         "chatbot": chatbot
-    }, ensure_ascii=False).encode('utf8')
+    }, ensure_ascii=False).encode('utf8'), mimetype='application/json')
 
 @app.route('/training', methods=['POST'])
 def training():
@@ -29,26 +28,30 @@ def training():
     intent = body['intent']
     bot = body['bot']
     training_bot(intent['name'], intent['content'], bot)
-    return json.dumps({
+    return Response(json.dumps({
         "message": "Treinamento concluído",
         "intencao": intent["name"]
-    })
+    }), mimetype='application/json')
 
 @app.route('/send', methods=['POST'])
 def send_message():
     body = request.get_json(force=True)
     answer = get_response(body['message'], body['bot'])
-    return json.dumps({"answer": str(answer)}, ensure_ascii=False).encode('utf8')
+    return Response(json.dumps({"answer": str(answer)}, ensure_ascii=False).encode('utf8'), mimetype='application/json')
 
 @app.route('/bots', methods=['GET'])
 def bots():
     bots = list_bots()
-    return json.dumps({"clients": str(bots)}, ensure_ascii=False).encode('utf8')
-
+    for bot in bots:
+        bot['_id'] = str(bot['_id'])
+        bot['created'] = str(bot['created'])
+    return Response(json.dumps(bots), mimetype='application/json')
 
 @app.route('/intents/<clientId>', methods=["GET"])
 def intents(clientId):
     intents = list_intents(clientId)
-    print(intents)
-    return json.dumps({"intents": str(intents)}, ensure_ascii=False).encode('utf8')
+    for intent in intents:
+        intent['_id'] = str(intent['_id'])
+        intent['clientId'] = str(intent['clientId'])
+    return Response(json.dumps(intents), mimetype='application/json')
 

@@ -68,7 +68,7 @@ def get_response(client_message, bot):
 
 def list_bots():
     db = connect()
-    bots = db['homolog']['clients'].find({})
+    bots = db['homolog']['clients'].find()
     #db.close()
     return list(bots)
 
