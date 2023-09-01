@@ -53,5 +53,5 @@ def intents(clientId):
     for intent in intents:
         intent['_id'] = str(intent['_id'])
         intent['clientId'] = str(intent['clientId'])
-    return Response(json.dumps(intents), mimetype='application/json')
+    return Response(json.dumps(intents, ensure_ascii=False).encode('utf8'), mimetype='application/json')
 
